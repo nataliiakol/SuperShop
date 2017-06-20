@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SuperShop.Partners;
-using SuperShop.Product;
+﻿using System.Collections.Generic;
 using SuperShop.Product_repository;
 
 namespace SuperShop
@@ -19,4 +13,4 @@ namespace SuperShop
             ProductRepository.SaveProducts(shipment.Products);
         }
     }
-}
+} 

@@ -11,7 +11,7 @@ namespace SuperShop.Product_repository
         }
 
         public List<Product.Product> Retreive() {
-            return null;
+            return new List<Product.Product>();
         }
 
         public static void SaveProducts(List<Product.Product> Products) {
@@ -21,9 +21,14 @@ namespace SuperShop.Product_repository
             }
         }
         public static void DeleteProduct(int productId, int instanceCount) {
-
+            Product.Product productToDelete = Retrieve(productId);
+            if (productToDelete.InstanceCount >= instanceCount) {
+                productToDelete.InstanceCount -= instanceCount;
+            }
+            else { Console.WriteLine("You can't delete more items then you have");}
         }
         public static void UpdateProduct(int productId, Product.Product product) {
+            Product.Product productToDelete = Retrieve(productId);
 
         }
     }

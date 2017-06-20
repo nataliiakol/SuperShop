@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SuperShop.Product;
-
-namespace SuperShop
+﻿namespace SuperShop.Product
 {
     public class HealthCosmetics : Cosmetics
     {

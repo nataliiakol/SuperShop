@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SuperShop.Partners;
+using SuperShop.Product;
 using SuperShop.Product_repository;
 
 namespace SuperShop
@@ -21,7 +22,6 @@ namespace SuperShop
     public void DeliverGoods(int neededFoodProducts, int neededHealthCosmetics, int neededMakeUp) {
             Shipment shipment = delivery.Ship(neededFoodProducts, neededHealthCosmetics, neededMakeUp);
             wareHouse.ReceiveDelivery(shipment);
-            Console.WriteLine("You delivered " + neededFoodProducts + "food products, " + neededHealthCosmetics + "Health Cosmetics, " + neededMakeUp + "make-up products");
         }
         public void DeleteProducts(int productId, int instanceCount)
         {
@@ -29,15 +29,12 @@ namespace SuperShop
         }
 
         public void UpdateProduct(int productId, string name, string description)
-        {
-            Product.Product updatedProduct = ProductRepository.Retrieve(productId);
-            updatedProduct.Name = name;
-            updatedProduct.Description = description;
+        { 
+            ProductRepository.UpdateProduct(productId, new FoodProducts(1));
         }
 
-        public void FindProducts(int productId)
-        {
-
+        public void FindProducts(int productId) {
+            ProductRepository.Retrieve(productId);
         }
         
 
