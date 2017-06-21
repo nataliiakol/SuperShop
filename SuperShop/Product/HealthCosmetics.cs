@@ -6,6 +6,11 @@
             ProductID = productID;
         }
 
+        public HealthCosmetics()
+        {
+            
+        }
+
         public override bool Validate() {
             return true;
         }

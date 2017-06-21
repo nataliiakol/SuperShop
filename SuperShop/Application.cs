@@ -13,28 +13,30 @@ namespace SuperShop
 
         private WareHouse wareHouse;
         private DeliveryAgency delivery;
+        private ProductRepository productRepo;
 
         public Application() {
             wareHouse = new WareHouse();
             delivery = new DeliveryAgency();
+            productRepo=new ProductRepository();
     }
 
     public void DeliverGoods(int neededFoodProducts, int neededHealthCosmetics, int neededMakeUp) {
             Shipment shipment = delivery.Ship(neededFoodProducts, neededHealthCosmetics, neededMakeUp);
-            wareHouse.ReceiveDelivery(shipment);
+            wareHouse.ReceiveDelivery(shipment, productRepo);
         }
-        public void DeleteProducts(int productId, int instanceCount)
+    public void DeleteProducts(int productId, int instanceCount)
         {
-            ProductRepository.DeleteProduct(productId, instanceCount);
+            productRepo.DeleteProduct(productId, instanceCount);
         }
 
-        public void UpdateProduct(int productId, string name, string description)
-        { 
-            ProductRepository.UpdateProduct(productId, new FoodProducts(1));
+    public void UpdateProduct(int productId, string name, string description)
+        {
+            productRepo.UpdateProduct(productId, new FoodProducts(1));
         }
 
-        public void FindProducts(int productId) {
-            ProductRepository.Retrieve(productId);
+    public void FindProducts(int productId) {
+        productRepo.Retrieve(productId);
         }
         
 

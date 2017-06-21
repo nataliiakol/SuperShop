@@ -8,6 +8,11 @@
             ProductID = productID;
         }
 
+        public FoodProducts()
+        {
+
+        }
+
         public override bool Validate() {
             var validResults = true;
             return validResults;

@@ -6,9 +6,9 @@ namespace SuperShop.Partners
 
        public Shipment Ship(int quantityFood, int quantityHealth, int quantityMakeUp) {
            var shipment = new Shipment();
-           shipment.Add(GetFoodProducts(quantityFood));
-           shipment.Add(GetHealthProducts(quantityHealth));
-           shipment.Add(GetMakeUProducts(quantityMakeUp));
+           shipment.AddFoodProduct(GetFoodProducts(quantityFood));
+           shipment.AddHealthCosmeticsProduct(GetHealthProducts(quantityHealth));
+           shipment.AddMakeUpProduct(GetMakeUProducts(quantityMakeUp));
            return shipment;
        }
 

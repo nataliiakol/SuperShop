@@ -9,8 +9,8 @@ namespace SuperShop
             return new List<Product.Product>();
         }
 
-        public void ReceiveDelivery(Shipment shipment) {
-            ProductRepository.SaveProducts(shipment.Products);
+        public void ReceiveDelivery(Shipment shipment, ProductRepository productRepo) {
+            productRepo.SaveProducts(shipment.FoodProducts, shipment.HealthCosmeticsProducts, shipment.MakeUpProducts);
         }
     }
 } 
