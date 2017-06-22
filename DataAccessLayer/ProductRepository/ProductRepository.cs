@@ -2,6 +2,7 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
 using System.Xml.Serialization;
 using BusinessLogicLayer.Product;
 
@@ -71,7 +72,9 @@ namespace DataAccessLayer.ProductRepository
 
         public void AddProducts(List<FoodProducts> foodProducts, List<HealthCosmetics> healthCosmeticsProducts,
             List<MakeUp> makeUpProducts) {
-            
+            List<Product> newFoods = GetProducts(typeof(List<FoodProducts>));
+            newFoods.AddRange(foodProducts);
+            WriteToFile(GetFileName(typeof(List<FoodProducts>)), typeof(List<FoodProducts>), newFoods);
         }
 
         public void DeleteProduct(string productId) {

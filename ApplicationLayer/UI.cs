@@ -1,20 +1,12 @@
-﻿using ApplicationLayer;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Dynamic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using BusinessLogicLayer.Users;
 
-
-namespace SuperShop
+namespace ApplicationLayer
 {
     public class UI
     {
         static int parsedAnswer;
-        public static string DrawHeader()
+        public static void DrawHeader()
         {
             Console.WriteLine("_____________________________________");
             Console.WriteLine("_____________________________________");
@@ -23,6 +15,14 @@ namespace SuperShop
             Console.WriteLine("_____________________________________");
             Console.WriteLine("_____________________________________");
             Console.WriteLine("");
+        }
+
+        public static string DrawLogin() {
+            Console.WriteLine("Please enter your name");
+            return Console.ReadLine();
+        }
+
+        public static string DrawChoisesToSelect() {
             Console.WriteLine("Please select an action to perform:");
             Console.WriteLine("");
             Console.WriteLine("1. Deliver new products to the shop");
@@ -54,21 +54,24 @@ namespace SuperShop
                     application.DeliverGoods(neededFoodProducts, neededHealthCosmetics, neededMakeUp);
                     break;
                 case 2:
-                    int productId = ValidIntMessage("Please enter a product number that you want to find");
+                    Console.WriteLine("Please enter a product number that you want to find");
+                    string productId = Console.ReadLine();
                     application.FindProducts(productId);
                     break;
                 case 3:
-                    productId = ValidIntMessage("Please enter a product number that you want to update");
+                    Console.WriteLine("Please enter a product number that you want to update");
+                    productId = Console.ReadLine();
                     Console.WriteLine("Enter new name");
                     string name = Console.ReadLine();
                     Console.WriteLine("Enter new description");
                     string description = Console.ReadLine();
-                    application.UpdateProduct(productId, name, description);
+                    application.UpdateProduct();
                     break;
                 case 4:
-                    productId = ValidIntMessage("Please enter a product number that you want to delete");
+                    Console.WriteLine("Please enter a product number that you want to delete");
+                    productId = Console.ReadLine();
                     int instanceCount = ValidIntMessage("Please enter how many items of this product do you want to delete");
-                    application.DeleteProducts(productId, instanceCount);
+                    application.DeleteProducts(productId);
                     break;
                 default:
                     Console.WriteLine("Please, write your choice - a number between 1-4");
@@ -76,15 +79,22 @@ namespace SuperShop
             }
         }
 
-        public static void drawInititalUi(Application application) {
+        public static void DrawLoginUI(Application application) {
+            string userName;
+            do {
+                userName = DrawLogin();
+            } while (application.checkAdmin(userName));
+        }
+
+        public static void DrawInititalUi(Application application) {
 
             do {
-                string answer = DrawHeader();
+                string answer = DrawChoisesToSelect();
                 if (int.TryParse(answer, out parsedAnswer)) {
                     MainJob(application, parsedAnswer);
                 }
                 else {
-                    drawInititalUi(application);
+                    DrawInititalUi(application);
                 }
             } while (parsedAnswer != 0);
         }
