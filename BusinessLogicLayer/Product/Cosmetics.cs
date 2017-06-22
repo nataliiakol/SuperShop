@@ -2,6 +2,6 @@
 {
     public abstract class Cosmetics : Product
     {
-
+        public Cosmetics(string ProductTypeCode) : base(ProductTypeCode) { }
     }
 }

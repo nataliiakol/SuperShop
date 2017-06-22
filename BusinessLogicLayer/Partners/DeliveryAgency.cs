@@ -13,12 +13,12 @@ namespace BusinessLogicLayer.Partners
        }
 
        private FoodProducts GetFoodProducts(int quantityFood) {
-           return new FoodProducts(1) {InstanceCount = quantityFood};
+           return new FoodProducts() {InstanceCount = quantityFood};
        }
 
        private HealthCosmetics GetHealthProducts(int quantityHealth)
        {
-           return new HealthCosmetics(1) { InstanceCount = quantityHealth };
+           return new HealthCosmetics() { InstanceCount = quantityHealth };
        }
 
        private MakeUp GetMakeUProducts(int quantityMakeUp)

@@ -4,12 +4,7 @@
 
         public float Weight { get; set; }
 
-        public FoodProducts(int productID){
-            ProductID = productID;
-        }
-
-        public FoodProducts()
-        {
+        public FoodProducts() : base("01") {
 
         }
 

@@ -2,12 +2,8 @@
 {
     public class HealthCosmetics : Cosmetics
     {
-        public HealthCosmetics(int productID) {
-            ProductID = productID;
-        }
 
-        public HealthCosmetics()
-        {
+        public HealthCosmetics() : base("02") {
             
         }
 

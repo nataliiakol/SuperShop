@@ -4,5 +4,7 @@
         public override bool Validate() {
             return true;
         }
+
+        public MakeUp() : base("03") { }
     }
 }

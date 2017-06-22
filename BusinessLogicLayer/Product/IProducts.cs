@@ -4,7 +4,7 @@ namespace BusinessLogicLayer.Product
 {
     internal interface IProducts
     {
-        int ProductID { get; set; }
+        string ProductID { get; set; }
         float CurrentPrice { get; set; }
         string Name { get; set; }
         string Description { get; set; }

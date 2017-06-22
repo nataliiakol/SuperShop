@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
@@ -7,35 +8,41 @@ using BusinessLogicLayer.Product;
 namespace DataAccessLayer.ProductRepository
 {
     public class ProductRepository {
-        public Product Retrieve(int productID) {
-            List<FoodProducts> foodProducts = GetFoodProducts();
-            FoodProducts returnedProduct= new FoodProducts();
-            foreach (FoodProducts product in foodProducts) {
-                if (product.ProductID == productID) {
-                    returnedProduct = product;
+        private List<Product> productsInContext;
+        private Type productListType;
+        public Product Retrieve(string productId) {
+            productListType = GetTypeFromProductId(productId);
+            productsInContext = GetProducts(productListType);
+            foreach (Product product in productsInContext) {
+                if (product.ProductID == productId) {
+                    return product;
                 }          
             }
-            return returnedProduct;
+            throw new TypeAccessException("No such product!");
         }
 
-    public List<FoodProducts> GetFoodProducts() {
-            XmlSerializer serializer=new XmlSerializer(typeof(List<FoodProducts>));
-            TextReader reader = new StringReader("foodProducts");
-            string path = Path.Combine("C:/GitRepo", "");
-            List<FoodProducts> foodProducts;
-            foodProducts = (List<FoodProducts>) serializer.Deserialize(reader);
-            reader.Close();
-            return foodProducts;
+        private Type GetTypeFromProductId(string productID) {
+            string type = productID.Substring(0, 2);
+            switch (type) {
+                case "01":
+                    return typeof(List<FoodProducts>);
+                case "02":
+                    return typeof(List<HealthCosmetics>);
+                case "03":
+                    return typeof(List<MakeUp>);
+                default:
+                    throw new TypeAccessException("Wrong type!");
         }
 
-        public List<Product> GetFoodProducts(Type type)
+        }
+
+        public List<Product> GetProducts(Type type)
         {
             XmlSerializer serializer = new XmlSerializer(type);
             string fileName = GetFileName(type);
             string path = Path.Combine("C:/GitRepo", fileName);
-            TextReader reader = new StringReader(path);          
-            List<Product> products;
-            products = (List<Product>)serializer.Deserialize(reader);
+            TextReader reader = new StringReader(path);
+            List<Product> products = (List<Product>)serializer.Deserialize(reader);
             reader.Close();
             return products;
         }
@@ -44,12 +51,17 @@ namespace DataAccessLayer.ProductRepository
             if (typeof(List<FoodProducts>) == type) {
                 return "foodProducts";
             }
-            else if (typeof(List<FoodProducts>) == type)
+            else if (typeof(List<HealthCosmetics>) == type) {
+                return "HealthCosmetics";
+            }
+            else if (typeof(List<MakeUp>) == type)
             {
-                return "foodProducts";
+                return "makeUp";
+            }
+            else {
+               throw new TypeAccessException("Wrong type!");
             }
         }
-
 
         public void SaveProducts(List<FoodProducts> foodProducts, List<HealthCosmetics> healthCosmeticsProducts, List<MakeUp> makeUpProducts) {
             WriteToFile("foodProducts", typeof(List<FoodProducts>), foodProducts);
@@ -57,19 +69,27 @@ namespace DataAccessLayer.ProductRepository
             WriteToFile("makeUpProducts", typeof(List<MakeUp>), makeUpProducts);       
         }
 
-        public void DeleteProduct(int productId, int instanceCount) {
-            Product productToDelete = Retrieve(productId);
-            if (productToDelete.InstanceCount >= instanceCount) {
-                productToDelete.InstanceCount -= instanceCount;                
-            }
-            else {                
-                Console.WriteLine("You can't delete more items then you have");                
-            }
+        public void AddProducts(List<FoodProducts> foodProducts, List<HealthCosmetics> healthCosmeticsProducts,
+            List<MakeUp> makeUpProducts) {
+            
         }
 
-        public void UpdateProduct(int productId, Product product) {
-            //GetFoodProducts()
-            Product productToUpdate = Retrieve(productId);
+        public void DeleteProduct(string productId) {
+            Type type = GetTypeFromProductId(productId);
+            List<Product> products = GetProducts(type);
+            foreach (Product product in products)
+            {
+                if (product.ProductID == productId)
+                {
+                    products.Remove(product);
+                    break;
+                }
+            }
+            WriteToFile(GetFileName(type), type, products);
+        }
+
+        public void UpdateProduct() {
+            WriteToFile(GetFileName(productListType), productListType, productsInContext);
         }
 
         public void WriteToFile(string fileName, Type type, Object file) {
