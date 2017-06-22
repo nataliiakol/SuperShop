@@ -1,4 +1,4 @@
-﻿namespace SuperShop.Product
+﻿namespace BusinessLogicLayer.Product
 {
     public abstract class Cosmetics : Product
     {

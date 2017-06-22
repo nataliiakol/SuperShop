@@ -54,9 +54,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SuperShop\SuperShop.csproj">
-      <Project>{63543e2f-cd76-4739-b9cc-af47be22bc9a}</Project>
-      <Name>SuperShop</Name>
+    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
+      <Project>{025F9C60-2594-40BB-A2E8-BA30F3C55833}</Project>
+      <Name>BusinessLogicLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{6F734466-C127-490F-8735-564993916B73}</Project>
+      <Name>DataAccessLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

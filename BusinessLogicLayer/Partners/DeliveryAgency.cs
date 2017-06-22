@@ -1,8 +1,8 @@
-﻿using SuperShop.Product;
+﻿using BusinessLogicLayer.Product;
 
-namespace SuperShop.Partners
+namespace BusinessLogicLayer.Partners
 {
-   public  class DeliveryAgency : Partners {
+   public  class DeliveryAgency : BusinessLogicLayer.Partners.Partners {
 
        public Shipment Ship(int quantityFood, int quantityHealth, int quantityMakeUp) {
            var shipment = new Shipment();

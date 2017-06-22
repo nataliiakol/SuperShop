@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using BusinessLogicLayer.Product;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SuperShop.Product;
-using SuperShop.Product_repository;
+using DataAccessLayer.Product_repository;
 
 namespace ProductRepositoryTests {
 

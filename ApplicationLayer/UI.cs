@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApplicationLayer;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SuperShop
 {
-    class UI
+    public class UI
     {
         static int parsedAnswer;
         public static string DrawHeader()

@@ -1,4 +1,4 @@
-﻿namespace SuperShop.Users
+﻿namespace BusinessLogicLayer.Users
 {
     public abstract class Users
     {

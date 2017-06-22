@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.NetworkInformation;
 using System.Xml.Serialization;
-using SuperShop.Product;
+using BusinessLogicLayer.Product;
 
-namespace SuperShop.Product_repository
+namespace DataAccessLayer.ProductRepository
 {
     public class ProductRepository {
-        public Product.Product Retrieve(int productID) {
+        public Product Retrieve(int productID) {
             List<FoodProducts> foodProducts = GetFoodProducts();
             FoodProducts returnedProduct= new FoodProducts();
             foreach (FoodProducts product in foodProducts) {
@@ -29,25 +28,37 @@ namespace SuperShop.Product_repository
             return foodProducts;
         }
 
-        public List<Product.Product> GetFoodProducts(Type type, string fileName)
+        public List<Product> GetFoodProducts(Type type)
         {
             XmlSerializer serializer = new XmlSerializer(type);
-            TextReader reader = new StringReader("fileName");
-            string path = Path.Combine("C:/GitRepo", "");
-            List<Product.Product> products;
-            products = (List<Product.Product>)serializer.Deserialize(reader);
+            string fileName = GetFileName(type);
+            string path = Path.Combine("C:/GitRepo", fileName);
+            TextReader reader = new StringReader(path);          
+            List<Product> products;
+            products = (List<Product>)serializer.Deserialize(reader);
             reader.Close();
             return products;
         }
 
-        public void SaveProducts(List<Product.FoodProducts> foodProducts, List<HealthCosmetics> healthCosmeticsProducts, List<MakeUp> makeUpProducts) {
-            WriteToFile("foodProducts", typeof(List<Product.FoodProducts>), foodProducts);
+        private string GetFileName(Type type) {
+            if (typeof(List<FoodProducts>) == type) {
+                return "foodProducts";
+            }
+            else if (typeof(List<FoodProducts>) == type)
+            {
+                return "foodProducts";
+            }
+        }
+
+
+        public void SaveProducts(List<FoodProducts> foodProducts, List<HealthCosmetics> healthCosmeticsProducts, List<MakeUp> makeUpProducts) {
+            WriteToFile("foodProducts", typeof(List<FoodProducts>), foodProducts);
             WriteToFile("healthCosmeticsProducts", typeof(List<HealthCosmetics>), healthCosmeticsProducts);
             WriteToFile("makeUpProducts", typeof(List<MakeUp>), makeUpProducts);       
         }
 
         public void DeleteProduct(int productId, int instanceCount) {
-            Product.Product productToDelete = Retrieve(productId);
+            Product productToDelete = Retrieve(productId);
             if (productToDelete.InstanceCount >= instanceCount) {
                 productToDelete.InstanceCount -= instanceCount;                
             }
@@ -56,13 +67,12 @@ namespace SuperShop.Product_repository
             }
         }
 
-        public void UpdateProduct(int productId, Product.Product product) {
+        public void UpdateProduct(int productId, Product product) {
             //GetFoodProducts()
-            Product.Product productToUpdate = Retrieve(productId);
+            Product productToUpdate = Retrieve(productId);
         }
 
         public void WriteToFile(string fileName, Type type, Object file) {
-
             XmlSerializer Serializer = new XmlSerializer(type);
             string path = Path.Combine("C:/GitRepo", fileName);
             StreamWriter writer = new StreamWriter(path);           

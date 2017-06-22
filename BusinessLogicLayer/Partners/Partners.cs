@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SuperShop.Partners
+namespace BusinessLogicLayer.Partners
 {
     public abstract class Partners : IPartners {
         public string Name { get; set; }

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SuperShop.Partners;
-using SuperShop.Product;
-using SuperShop.Product_repository;
+﻿using BusinessLogicLayer;
+using BusinessLogicLayer.Partners;
+using BusinessLogicLayer.Product;
+using DataAccessLayer;
+using DataAccessLayer.ProductRepository;
 
-namespace SuperShop
+namespace ApplicationLayer
 {
     public class Application {
 

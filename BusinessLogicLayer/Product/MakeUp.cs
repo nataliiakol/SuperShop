@@ -1,4 +1,4 @@
-﻿namespace SuperShop.Product
+﻿namespace BusinessLogicLayer.Product
 {
     public class MakeUp : Cosmetics {
         public override bool Validate() {
