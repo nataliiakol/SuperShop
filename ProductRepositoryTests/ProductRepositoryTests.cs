@@ -16,9 +16,5 @@ namespace ProductRepositoryTests {
             Assert.IsNotNull(product);
         }
 
-
-
-
-
     }
 }

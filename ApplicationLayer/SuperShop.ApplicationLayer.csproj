@@ -60,6 +60,10 @@
       <Project>{6F734466-C127-490F-8735-564993916B73}</Project>
       <Name>SuperShop.DataAccessLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SuperShop.Common\SuperShop.Common.csproj">
+      <Project>{67b3643b-2cdc-41b1-ad50-5fb89771141d}</Project>
+      <Name>SuperShop.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

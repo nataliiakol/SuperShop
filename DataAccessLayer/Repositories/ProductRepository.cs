@@ -17,32 +17,37 @@ namespace DataAccessLayer.ProductRepository
         private static readonly Common vCommon = new Common();
         private static readonly string vFileName = vCommon.GetFileName(vProductListType);
         private static readonly string vPath = @"C:\GitRepo\" + vFileName;
+        private const int LIMIT = 15;
 
         public void AddProducts(List<T> Products){
-            List<T> newProducts = GetProducts();
-            newProducts.AddRange(Products);
-            WriteToFile(newProducts);
+            GetProducts();
+            if (vProductsInContext.Count == 5) {
+                throw new LimitException();
+            }
+            vProductsInContext.AddRange(Products);
+            WriteToFile(vProductsInContext);
         }
 
         public void DeleteProduct(string productId) {
-            List<T> products = GetProducts();
-            foreach (T product in products)
+            GetProducts();
+            foreach (T product in vProductsInContext)
             {
                 if (product.ProductID == productId)
                 {
-                    products.Remove(product);
+                    vProductsInContext.Remove(product);
                     break;
                 }
             }
-            WriteToFile(products);
+            WriteToFile(vProductsInContext);
         }
 
         public void UpdateProduct() {
+
             WriteToFile(vProductsInContext);
         }
 
         public Product Retrieve(string productId) {
-            vProductsInContext = GetProducts();
+            GetProducts();
             foreach (T product in vProductsInContext) {
                 if (product.ProductID == productId) {
                     return product;
@@ -51,14 +56,13 @@ namespace DataAccessLayer.ProductRepository
             throw new TypeAccessException("No such product!");
         }
 
-        public List<T> GetProducts() {
+        private void GetProducts() {
             TextReader reader = new StreamReader(File.Open(vPath, FileMode.OpenOrCreate));
-            List<T> products = (List<T>)vSerializer.Deserialize(reader);
+            vProductsInContext = (List<T>)vSerializer.Deserialize(reader);
             reader.Close();
-            return products;
         }
 
-        public void WriteToFile(object file) {
+        private void WriteToFile(object file) {
             StreamWriter writer = new StreamWriter(vPath);           
             vSerializer.Serialize(writer, file);      
             writer.Close();
@@ -72,4 +76,6 @@ namespace DataAccessLayer.ProductRepository
             WriteToFile("makeUpProducts", typeof(List<MakeUp>), makeUpProducts);
         }*/
     }
+
+
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using BusinessLogicLayer.Product;
 using BusinessLogicLayer.Users;
+using SuperShop.Common;
 
 namespace ApplicationLayer
 {
@@ -53,13 +54,19 @@ namespace ApplicationLayer
             {
                 case 1:
                     int neededFoodProducts = ValidIntMessage("How many food products do you want?");
-                    application.DeliverFoodProducts(neededFoodProducts);
+                    try {
+                        application.DeliverFoodProducts(neededFoodProducts);
+                    }                    
+                    catch (LimitException e) {
+                        Console.WriteLine("You can't exceed the limit for food products");
+                        throw;
+                    } 
+                        
                     int neededHealthCosmetics = ValidIntMessage("How many health cosmetics products do you want?");
                     application.DeliverHealthCosmetics(neededHealthCosmetics);
                     int neededMakeUp = ValidIntMessage("How many make-up products do you want?");
                     application.DeliverMakeUp(neededMakeUp);
                     application.LogUser(CurrentUserName, "delivery");
-
                     break;
                 case 2:
                     Console.WriteLine("Please enter a product number that you want to find");
@@ -70,10 +77,11 @@ namespace ApplicationLayer
                 case 3:
                     Console.WriteLine("Please enter a product number that you want to update");
                     productId = Console.ReadLine();
+                    Product product=application.FindProducts(productId);
                     Console.WriteLine("Enter new name");
-                    string name = Console.ReadLine();
+                    product.Name = Console.ReadLine();
                     Console.WriteLine("Enter new description");
-                    string description = Console.ReadLine();
+                    product.Description = Console.ReadLine();
                     application.UpdateProduct();
                     application.LogUser(CurrentUserName, "update");
                     break;

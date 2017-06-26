@@ -59,16 +59,15 @@ namespace ApplicationLayer
             {
                 Console.WriteLine("Sorry, there is no such product");
             }
-
         }
 
-        public void FindProducts(string productId)
+        public Product FindProducts(string productId)
         {
-            try {productRepoFood.Retrieve(productId); }
+            try {return productRepoFood.Retrieve(productId); }
             catch (TypeAccessException e) {
                 Console.WriteLine("Sorry, there is no such product");
+                return null;
             }
-
         }
 
         public bool checkAdmin(string userName) {
