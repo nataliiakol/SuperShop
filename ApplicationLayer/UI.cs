@@ -1,4 +1,5 @@
 ﻿using System;
+using BusinessLogicLayer.Product;
 using BusinessLogicLayer.Users;
 
 namespace ApplicationLayer
@@ -6,6 +7,8 @@ namespace ApplicationLayer
     public class UI
     {
         static int parsedAnswer;
+        public static string CurrentUserName { get; private set; }
+
         public static void DrawHeader()
         {
             Console.WriteLine("_____________________________________");
@@ -19,7 +22,8 @@ namespace ApplicationLayer
 
         public static string DrawLogin() {
             Console.WriteLine("Please enter your name");
-            return Console.ReadLine();
+            CurrentUserName = Console.ReadLine();
+            return CurrentUserName;
         }
 
         public static string DrawChoisesToSelect() {
@@ -49,14 +53,19 @@ namespace ApplicationLayer
             {
                 case 1:
                     int neededFoodProducts = ValidIntMessage("How many food products do you want?");
+                    application.DeliverFoodProducts(neededFoodProducts);
                     int neededHealthCosmetics = ValidIntMessage("How many health cosmetics products do you want?");
+                    application.DeliverHealthCosmetics(neededHealthCosmetics);
                     int neededMakeUp = ValidIntMessage("How many make-up products do you want?");
-                    application.DeliverGoods(neededFoodProducts, neededHealthCosmetics, neededMakeUp);
+                    application.DeliverMakeUp(neededMakeUp);
+                    application.LogUser(CurrentUserName, "delivery");
+
                     break;
                 case 2:
                     Console.WriteLine("Please enter a product number that you want to find");
                     string productId = Console.ReadLine();
                     application.FindProducts(productId);
+                    application.LogUser(CurrentUserName, "search");
                     break;
                 case 3:
                     Console.WriteLine("Please enter a product number that you want to update");
@@ -66,12 +75,15 @@ namespace ApplicationLayer
                     Console.WriteLine("Enter new description");
                     string description = Console.ReadLine();
                     application.UpdateProduct();
+                    application.LogUser(CurrentUserName, "update");
                     break;
                 case 4:
-                    Console.WriteLine("Please enter a product number that you want to delete");
-                    productId = Console.ReadLine();
-                    int instanceCount = ValidIntMessage("Please enter how many items of this product do you want to delete");
-                    application.DeleteProducts(productId);
+                    Console.WriteLine("Please, enter a product number that you want to delete");
+                    application.DeleteProducts(Console.ReadLine());
+                    application.LogUser(CurrentUserName, "delete");
+                    break;
+                case 0:
+                    Environment.Exit(0);
                     break;
                 default:
                     Console.WriteLine("Please, write your choice - a number between 1-4");

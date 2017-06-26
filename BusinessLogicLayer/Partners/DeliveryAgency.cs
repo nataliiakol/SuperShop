@@ -1,30 +1,36 @@
-﻿using BusinessLogicLayer.Product;
+﻿using System.ComponentModel;
+using BusinessLogicLayer.Product;
 
 namespace BusinessLogicLayer.Partners
 {
-   public  class DeliveryAgency : BusinessLogicLayer.Partners.Partners {
+   public  class DeliveryAgency : BusinessLogicLayer.Partners.Partners{
 
-       public Shipment Ship(int quantityFood, int quantityHealth, int quantityMakeUp) {
-           var shipment = new Shipment();
-           shipment.AddFoodProduct(GetFoodProducts(quantityFood));
-           shipment.AddHealthCosmeticsProduct(GetHealthProducts(quantityHealth));
-           shipment.AddMakeUpProduct(GetMakeUProducts(quantityMakeUp));
+       Shipment shipment = new Shipment();
+
+        /* public Shipment<T> Ship(int quantityFood, int quantityHealth, int quantityMakeUp) {
+             var shipment = new Shipment();
+             shipment.AddFoodProduct(GetFoodProducts(quantityFood));
+             shipment.AddHealthCosmeticsProduct(GetHealthProducts(quantityHealth));
+             shipment.AddMakeUpProduct(GetMakeUProducts(quantityMakeUp));
+             return shipment;
+         }*/
+
+       public Shipment ShipFood(int quantity)
+       {
+           shipment.AddFoodProduct(new FoodProducts() { InstanceCount = quantity});
            return shipment;
        }
 
-       private FoodProducts GetFoodProducts(int quantityFood) {
-           return new FoodProducts() {InstanceCount = quantityFood};
-       }
-
-       private HealthCosmetics GetHealthProducts(int quantityHealth)
+       public Shipment ShipHealthCosmetics(int quantity)
        {
-           return new HealthCosmetics() { InstanceCount = quantityHealth };
+           shipment.AddHealthCosmeticsProduct(new HealthCosmetics() { InstanceCount = quantity });
+           return shipment;
        }
-
-       private MakeUp GetMakeUProducts(int quantityMakeUp)
+       public Shipment ShipMakeUp(int quantity)
        {
-           return new MakeUp() { InstanceCount = quantityMakeUp};
+           shipment.AddMakeUpProduct(new MakeUp() { InstanceCount = quantity });
+           return shipment;
        }
 
-   }
+    }
 }

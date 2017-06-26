@@ -1,4 +1,6 @@
-﻿namespace ApplicationLayer
+﻿using BusinessLogicLayer.Product;
+
+namespace ApplicationLayer
 {
     public class Program
     {

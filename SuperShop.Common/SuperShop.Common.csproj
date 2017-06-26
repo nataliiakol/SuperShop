@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6F734466-C127-490F-8735-564993916B73}</ProjectGuid>
+    <ProjectGuid>{67B3643B-2CDC-41B1-AD50-5FB89771141D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataAccessLayer</RootNamespace>
-    <AssemblyName>DataAccessLayer</AssemblyName>
+    <RootNamespace>SuperShop.Common</RootNamespace>
+    <AssemblyName>SuperShop.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,14 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProductRepository\ProductRepository.cs" />
-    <Compile Include="WareHouse.cs" />
+    <Compile Include="Common.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
-      <Project>{025F9C60-2594-40BB-A2E8-BA30F3C55833}</Project>
-      <Name>BusinessLogicLayer</Name>
+    <ProjectReference Include="..\BusinessLogicLayer\SuperShop.BusinessLogicLayer.csproj">
+      <Project>{025f9c60-2594-40bb-a2e8-ba30f3c55833}</Project>
+      <Name>SuperShop.BusinessLogicLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

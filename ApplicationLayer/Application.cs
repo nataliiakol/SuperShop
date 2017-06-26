@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BusinessLogicLayer;
 using BusinessLogicLayer.Partners;
 using BusinessLogicLayer.Product;
@@ -8,45 +9,81 @@ using DataAccessLayer.ProductRepository;
 
 namespace ApplicationLayer
 {
-    public class Application {
+    public class Application{
 
-        private WareHouse wareHouse;
-        private DeliveryAgency delivery;
-        private ProductRepository productRepo;
-        public List<Administrators> Administrators { get;  }
+        private readonly WareHouse wareHouse;
+        private readonly DeliveryAgency delivery;
+        private readonly ProductRepository<FoodProducts> productRepoFood;
+        private readonly ProductRepository<HealthCosmetics> productRepoHealth;
+        private readonly ProductRepository<MakeUp> productRepoMakeUp;
+        private readonly UserRepository userRepo;
+
 
         public Application() {
-            wareHouse = new WareHouse();
             delivery = new DeliveryAgency();
-            productRepo=new ProductRepository();
-            Administrators=new List<Administrators> {new Administrators("Lev")};
-    }
-
-        public void DeliverGoods(int neededFoodProducts, int neededHealthCosmetics, int neededMakeUp) {
-            Shipment shipment = delivery.Ship(neededFoodProducts, neededHealthCosmetics, neededMakeUp);
-            wareHouse.ReceiveDelivery(shipment, productRepo);
+            wareHouse = new WareHouse();
+            productRepoFood = new ProductRepository<FoodProducts>();
+            productRepoHealth = new ProductRepository<HealthCosmetics>();
+            productRepoMakeUp = new ProductRepository<MakeUp>();
+            userRepo = new UserRepository();
         }
+
+        public void DeliverFoodProducts(int neededFoodProducts) {
+            Shipment shipment = delivery.ShipFood(neededFoodProducts);
+            wareHouse.ReceiveDeliveryFood(shipment, productRepoFood);
+        }
+
+        public void DeliverHealthCosmetics(int neededFoodProducts)
+        {
+            Shipment shipment = delivery.ShipHealthCosmetics(neededFoodProducts);
+            wareHouse.ReceiveDeliveryHealth(shipment, productRepoHealth);
+        }
+        public void DeliverMakeUp(int neededMakeUp)
+        {
+            Shipment shipment = delivery.ShipMakeUp(neededMakeUp);
+            wareHouse.ReceiveDeliveryMakeUp(shipment, productRepoMakeUp);
+        }
+
         public void DeleteProducts(string productId)
         {
-            productRepo.DeleteProduct(productId);
+            try {productRepoFood.DeleteProduct(productId); }
+            catch (TypeAccessException e) {
+                Console.WriteLine("Sorry, there is no such product");
+            }
         }
 
         public void UpdateProduct()
         {
-            productRepo.UpdateProduct();
+            try { productRepoFood.UpdateProduct(); }
+            catch (TypeAccessException e)
+            {
+                Console.WriteLine("Sorry, there is no such product");
+            }
+
         }
 
-        public void FindProducts(string productId) {
-            productRepo.Retrieve(productId);
+        public void FindProducts(string productId)
+        {
+            try {productRepoFood.Retrieve(productId); }
+            catch (TypeAccessException e) {
+                Console.WriteLine("Sorry, there is no such product");
+            }
+
         }
 
         public bool checkAdmin(string userName) {
-            foreach (var admin in Administrators) {
+        List<Administrators> admins = userRepo.GetUsers();
+            foreach (var admin in admins) {
                 if (admin.Name == userName) {
                     return true;
                 }    
             }
             return false;
+        }
+
+        public void LogUser(string currentUserName, string eventName) {
+            Administrators currentUser = userRepo.Retrieve(currentUserName);
+            Console.WriteLine(currentUser.LogEvent(eventName));
         }
     }
 }

@@ -4,11 +4,13 @@ using BusinessLogicLayer.Product;
 
 namespace BusinessLogicLayer
 {
-    public class Shipment {
-        public List<Product.Product> Products { get; set; }
+    public class Shipment
+    {
+        //public List<Product.Product> Products { get; set; }
         public List<FoodProducts> FoodProducts { get; set; }
         public List<HealthCosmetics> HealthCosmeticsProducts { get; set; }
         public List<MakeUp> MakeUpProducts { get; set; }
+
 
         public float ShipmentCost { get; private set; }
 
@@ -39,5 +41,6 @@ namespace BusinessLogicLayer
             MakeUpProducts.Add(MakeUpProduct);
             ShipmentCost += MakeUpProduct.CurrentPrice;
         }
+
     }
     }

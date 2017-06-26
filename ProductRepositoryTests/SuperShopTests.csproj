@@ -54,13 +54,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
+    <ProjectReference Include="..\BusinessLogicLayer\SuperShop.BusinessLogicLayer.csproj">
       <Project>{025F9C60-2594-40BB-A2E8-BA30F3C55833}</Project>
-      <Name>BusinessLogicLayer</Name>
+      <Name>SuperShop.BusinessLogicLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+    <ProjectReference Include="..\DataAccessLayer\SuperShop.DataAccessLayer.csproj">
       <Project>{6F734466-C127-490F-8735-564993916B73}</Project>
-      <Name>DataAccessLayer</Name>
+      <Name>SuperShop.DataAccessLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -9,7 +9,7 @@ namespace ProductRepositoryTests {
 
     [TestClass]
     public class ProductRepositoryTests {
-        private ProductRepository repo = new ProductRepository();
+        private ProductRepository<FoodProducts> repo = new ProductRepository<FoodProducts>();
         [TestMethod]
         public void TestRetrieve() {
             Product product = repo.Retrieve("01");

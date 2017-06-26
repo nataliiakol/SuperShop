@@ -4,14 +4,21 @@ using BusinessLogicLayer.Product;
 
 namespace DataAccessLayer
 {
-    public class WareHouse {
+    public class WareHouse
+    {
 
-        public List<BusinessLogicLayer.Product.Product> RetrieveProducts(Product product, int quantuity) {           
-            return new List<Product>();
+        public void ReceiveDeliveryFood(Shipment shipment, ProductRepository.ProductRepository<FoodProducts> productRepo) {
+            productRepo.AddProducts(shipment.FoodProducts);
         }
 
-        public void ReceiveDelivery(Shipment shipment, ProductRepository.ProductRepository productRepo) {
-            productRepo.AddProducts(shipment.FoodProducts, shipment.HealthCosmeticsProducts, shipment.MakeUpProducts);
+        public void ReceiveDeliveryHealth(Shipment shipment, ProductRepository.ProductRepository<HealthCosmetics> productRepo)
+        {
+            productRepo.AddProducts(shipment.HealthCosmeticsProducts);
+        }
+
+        public void ReceiveDeliveryMakeUp(Shipment shipment, ProductRepository.ProductRepository<MakeUp> productRepo)
+        {
+            productRepo.AddProducts(shipment.MakeUpProducts);
         }
     }
 } 
