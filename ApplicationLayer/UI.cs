@@ -83,7 +83,7 @@ namespace ApplicationLayer
             string userName;
             do {
                 userName = DrawLogin();
-            } while (application.checkAdmin(userName));
+            } while (!application.checkAdmin(userName));
         }
 
         public static void DrawInititalUi(Application application) {

@@ -8,7 +8,7 @@ using BusinessLogicLayer.Product;
 
 namespace DataAccessLayer.ProductRepository
 {
-    public class ProductRepository {
+    public class ProductRepository <T> where T: Product{
         private List<Product> productsInContext;
         private Type productListType;
         public Product Retrieve(string productId) {
@@ -41,8 +41,8 @@ namespace DataAccessLayer.ProductRepository
         {
             XmlSerializer serializer = new XmlSerializer(type);
             string fileName = GetFileName(type);
-            string path = Path.Combine("C:/GitRepo", fileName);
-            TextReader reader = new StringReader(path);
+            string path = @"C:\GitRepo\" + fileName;
+            TextReader reader = new StreamReader(File.Open(path, FileMode.OpenOrCreate));
             List<Product> products = (List<Product>)serializer.Deserialize(reader);
             reader.Close();
             return products;
@@ -73,8 +73,14 @@ namespace DataAccessLayer.ProductRepository
         public void AddProducts(List<FoodProducts> foodProducts, List<HealthCosmetics> healthCosmeticsProducts,
             List<MakeUp> makeUpProducts) {
             List<Product> newFoods = GetProducts(typeof(List<FoodProducts>));
+            List<Product> newHealthCosmetics = GetProducts(typeof(List<HealthCosmetics>));
+            List<Product> newMakeUp = GetProducts(typeof(List<MakeUp>));
             newFoods.AddRange(foodProducts);
+            newHealthCosmetics.AddRange(healthCosmeticsProducts);
+            newMakeUp.AddRange(makeUpProducts);
             WriteToFile(GetFileName(typeof(List<FoodProducts>)), typeof(List<FoodProducts>), newFoods);
+            WriteToFile(GetFileName(typeof(List<HealthCosmetics>)), typeof(List<HealthCosmetics>), newHealthCosmetics);
+            WriteToFile(GetFileName(typeof(List<MakeUp>)), typeof(List<MakeUp>), newMakeUp);
         }
 
         public void DeleteProduct(string productId) {

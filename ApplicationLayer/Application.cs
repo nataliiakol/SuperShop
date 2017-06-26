@@ -37,7 +37,7 @@ namespace ApplicationLayer
         }
 
         public void FindProducts(string productId) {
-        productRepo.Retrieve(productId);
+            productRepo.Retrieve(productId);
         }
 
         public bool checkAdmin(string userName) {

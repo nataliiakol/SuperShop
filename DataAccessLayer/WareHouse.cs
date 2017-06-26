@@ -11,7 +11,7 @@ namespace DataAccessLayer
         }
 
         public void ReceiveDelivery(Shipment shipment, ProductRepository.ProductRepository productRepo) {
-            productRepo.SaveProducts(shipment.FoodProducts, shipment.HealthCosmeticsProducts, shipment.MakeUpProducts);
+            productRepo.AddProducts(shipment.FoodProducts, shipment.HealthCosmeticsProducts, shipment.MakeUpProducts);
         }
     }
 } 
