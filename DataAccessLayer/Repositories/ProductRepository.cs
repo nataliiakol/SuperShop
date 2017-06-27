@@ -32,17 +32,18 @@ namespace DataAccessLayer.ProductRepository
             GetProducts();
             foreach (T product in vProductsInContext)
             {
-                if (product.ProductID == productId)
-                {
+                if (product.ProductID == productId) {
                     vProductsInContext.Remove(product);
                     break;
+                }
+                else {
+                    throw new TypeAccessException("No such product!");
                 }
             }
             WriteToFile(vProductsInContext);
         }
 
         public void UpdateProduct() {
-
             WriteToFile(vProductsInContext);
         }
 

@@ -64,6 +64,7 @@ namespace ApplicationLayer
                         
                     int neededHealthCosmetics = ValidIntMessage("How many health cosmetics products do you want?");
                     application.DeliverHealthCosmetics(neededHealthCosmetics);
+                    application.DeliverHealthCosmetics(neededHealthCosmetics);
                     int neededMakeUp = ValidIntMessage("How many make-up products do you want?");
                     application.DeliverMakeUp(neededMakeUp);
                     application.LogUser(CurrentUserName, "delivery");
