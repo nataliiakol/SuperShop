@@ -5,7 +5,7 @@ using BusinessLogicLayer.Partners;
 using BusinessLogicLayer.Product;
 using BusinessLogicLayer.Users;
 using DataAccessLayer;
-using DataAccessLayer.ProductRepository;
+using DataAccessLayer.Repositories;
 
 namespace ApplicationLayer
 {

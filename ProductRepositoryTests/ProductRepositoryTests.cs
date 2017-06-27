@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using BusinessLogicLayer.Product;
-using DataAccessLayer.ProductRepository;
+using DataAccessLayer.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 

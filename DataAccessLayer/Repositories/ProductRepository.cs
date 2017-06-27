@@ -1,13 +1,11 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
 using System.Xml.Serialization;
 using BusinessLogicLayer.Product;
 using SuperShop.Common;
 
-namespace DataAccessLayer.ProductRepository
+namespace DataAccessLayer.Repositories
 {
     public class ProductRepository <T> where T: Product{
 
