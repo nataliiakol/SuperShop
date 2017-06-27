@@ -68,15 +68,5 @@ namespace DataAccessLayer.ProductRepository
             vSerializer.Serialize(writer, file);      
             writer.Close();
         }
-
-
-        /*  public void SaveProducts(List<FoodProducts> foodProducts, List<HealthCosmetics> healthCosmeticsProducts, List<MakeUp> makeUpProducts)
-        {
-            WriteToFile("foodProducts", typeof(List<FoodProducts>), foodProducts);
-            WriteToFile("healthCosmeticsProducts", typeof(List<HealthCosmetics>), healthCosmeticsProducts);
-            WriteToFile("makeUpProducts", typeof(List<MakeUp>), makeUpProducts);
-        }*/
     }
-
-
 }
