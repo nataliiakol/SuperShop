@@ -59,10 +59,7 @@ namespace DataAccessLayer.Repositories
             TextReader reader = new StreamReader(File.Open(vPath, FileMode.OpenOrCreate));
            try { vProductsInContext = (List<T>)vSerializer.Deserialize(reader); }
             catch (InvalidOperationException e) {
-                Console.WriteLine(e);
-                reader.Close();
-                WriteToFile(vProductsInContext=new List<T>());
-                GetProducts();
+                vProductsInContext=new List<T>();
             }
             reader.Close();
         }
